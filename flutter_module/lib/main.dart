@@ -29,13 +29,13 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
 
-    _alertUserAfterDelay(const Duration(seconds: 3));
+    _alertUserAfter(const Duration(seconds: 3));
   }
 
   @override
   Widget build(BuildContext context) => const Opacity(opacity: 0);
 
-  void _alertUserAfterDelay(Duration delay) {
+  void _alertUserAfter(Duration delay) {
     Future.delayed(delay).then((_) => showDialog(
         context: context,
         builder: (BuildContext context) => AlertDialog(
