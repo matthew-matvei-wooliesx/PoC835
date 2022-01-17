@@ -47,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
 
-    _alertUserAfterDelay(Duration(seconds: 3));
+    _alertUserAfterDelay(const Duration(seconds: 3));
   }
 
   @override
