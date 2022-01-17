@@ -59,6 +59,13 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    _alertUserAfterDelay(Duration(seconds: 3));
+  }
+
+  @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
@@ -108,5 +115,29 @@ class _MyHomePageState extends State<MyHomePage> {
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+
+  void _alertUserAfterDelay(Duration delay) {
+    Future.delayed(delay).then((_) => showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              title: const Text("Testing WGO-835"),
+              content: SingleChildScrollView(
+                child: ListBody(
+                  children: const [
+                    Text("This is a demo alert"),
+                    Text("Click OK")
+                  ],
+                ),
+              ),
+              actions: [
+                TextButton(
+                  child: const Text("OK"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            )));
   }
 }

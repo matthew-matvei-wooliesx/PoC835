@@ -2,6 +2,8 @@ package com.example.poc835
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import io.flutter.embedding.android.FlutterActivity
+import io.flutter.embedding.android.FlutterActivityLaunchConfigs
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.embedding.engine.FlutterEngineCache
 import io.flutter.embedding.engine.dart.DartExecutor
@@ -18,5 +20,12 @@ class MainActivity : AppCompatActivity() {
         )
 
         FlutterEngineCache.getInstance().put("cached_engine", flutterEngine)
+
+        startActivity(
+            FlutterActivity
+                .withCachedEngine("cached_engine")
+                .backgroundMode(FlutterActivityLaunchConfigs.BackgroundMode.transparent)
+                .build(this)
+        )
     }
 }
