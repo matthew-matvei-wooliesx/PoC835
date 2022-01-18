@@ -2,30 +2,38 @@ package com.example.poc835
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import io.flutter.embedding.android.FlutterActivity
-import io.flutter.embedding.android.FlutterActivityLaunchConfigs
-import io.flutter.embedding.engine.FlutterEngine
-import io.flutter.embedding.engine.FlutterEngineCache
-import io.flutter.embedding.engine.dart.DartExecutor
+import android.widget.Button
+import android.widget.TextView
+import io.flutter.embedding.android.*
 
 class MainActivity : AppCompatActivity() {
+    private var count = 0
+
+    companion object {
+        private const val TAG_FLUTTER_FRAGMENT = "flutter_fragment"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val flutterEngine = FlutterEngine(this)
+        val incrementer: Button = findViewById(R.id.incrementer)
+        val counter: TextView = findViewById(R.id.counter)
+        counter.text = "0"
 
-        flutterEngine.dartExecutor.executeDartEntrypoint(
-            DartExecutor.DartEntrypoint.createDefault()
-        )
+        incrementer.setOnClickListener {
+            count++
+            counter.text = count.toString()
+        }
 
-        FlutterEngineCache.getInstance().put("cached_engine", flutterEngine)
+        val flutterFragment = supportFragmentManager
+            .findFragmentByTag(TAG_FLUTTER_FRAGMENT) as FlutterFragment?
 
-        startActivity(
-            FlutterActivity
-                .withCachedEngine("cached_engine")
-                .backgroundMode(FlutterActivityLaunchConfigs.BackgroundMode.transparent)
-                .build(this)
-        )
+        if (flutterFragment == null) {
+            FlutterFragment
+                .withNewEngine()
+                .renderMode(RenderMode.texture)
+                .build<FlutterFragment>()
+        }
     }
 }

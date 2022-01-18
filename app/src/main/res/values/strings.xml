@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PoC 835</string>
+    <string name="incrementer">Click me!</string>
 </resources>
