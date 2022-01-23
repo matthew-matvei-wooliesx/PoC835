@@ -25,18 +25,28 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool _showingDialog = false;
+
   @override
   void initState() {
     super.initState();
 
-    _alertUserAfter(const Duration(seconds: 3));
+    _alertUserAfter(const Duration(seconds: 5));
   }
 
   @override
-  Widget build(BuildContext context) => const Opacity(opacity: 0);
+  Widget build(BuildContext context) => _showingDialog
+      ? Container(color: Colors.red.withOpacity(0))
+      : const Opacity(opacity: 0);
 
-  void _alertUserAfter(Duration delay) {
-    Future.delayed(delay).then((_) => showDialog(
+  void _alertUserAfter(Duration delay) async {
+    await Future.delayed(delay);
+
+    setState(() {
+      _showingDialog = true;
+    });
+
+    await showDialog(
         context: context,
         builder: (BuildContext context) => AlertDialog(
               title: const Text("Testing WGO-835"),
@@ -56,6 +66,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 )
               ],
-            )));
+            ));
+
+    setState(() {
+      _showingDialog = false;
+    });
   }
 }

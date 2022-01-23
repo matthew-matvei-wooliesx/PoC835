@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">PoC 835</string>
     <string name="incrementer">Click me!</string>
+    <string name="other_page_greeting">Hello other page!</string>
+    <string name="go_to_other_page">Go to other page</string>
+    <string name="go_back">Go back</string>
 </resources>
